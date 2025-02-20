@@ -4,6 +4,7 @@ import com.das6.hanoi.model.Move;
 import javafx.application.Application;
 
 import com.das6.hanoi.model.Hanoi;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +30,7 @@ public class HanoiApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         HBox controls = new HBox(5);
         controls.getChildren().add(new Label("Number of disks:"));
-        Spinner<Integer> numDisksSpinner = new Spinner<Integer>(3,15,3);
+        Spinner<Integer> numDisksSpinner = new Spinner<Integer>(3,10,3);
         controls.getChildren().add(numDisksSpinner);
         controls.getChildren().add(new Label("Number of Towers:"));
         Spinner<Integer> numTowersSpinner = new Spinner<Integer>(3,10,3);
@@ -56,6 +57,7 @@ public class HanoiApp extends Application {
 
         numTowersSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
             hanoi = new Hanoi(numDisksSpinner.getValue(), newValue, Integer.parseInt(txtStartTower.getText()));
+            view.renderHanoi(hanoi);
         });
 
         solve.setOnAction(e -> {

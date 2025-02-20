@@ -9,7 +9,7 @@ public class Tower implements IStack<Integer>{
     private int maxStackSize;
     private int stackSize;
 
-    public Tower(int towerId, int size, Set<Integer> disks) {
+    public Tower(int towerId, int size, List<Integer> disks) {
         this.towerId = towerId;
         this.disks = new LinkedList<>(disks);
         this.publicDisks = Collections.unmodifiableList(this.disks);
@@ -22,7 +22,7 @@ public class Tower implements IStack<Integer>{
     }
 
     public Tower(int towerId, int size) {
-        this(towerId, size, Collections.emptySet());
+        this(towerId, size, Collections.emptyList());
     }
 
     private boolean isNull(Object n) {

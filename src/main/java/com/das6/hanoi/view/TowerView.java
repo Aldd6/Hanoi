@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import com.das6.hanoi.model.Tower;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TowerView extends Region {
@@ -51,6 +52,9 @@ public class TowerView extends Region {
     public void renderTower(Tower tower) {
         diskIndexes.clear();
         diskIndexes.addAll(tower.getDisks());
+
+        Collections.reverse(diskIndexes);
+
         this.getChildren().setAll(stem);
         disks.clear();
         diskIndexes.forEach((index) -> {

@@ -16,7 +16,7 @@ public class Hanoi {
         this.towers = new ArrayList<>();
         for(int j = 0; j < nT; j++) {
             if(j == (start - 1)) {
-                towers.add(new Tower(j, nD,IntStream.range(0, nDisks).map(i -> nDisks - i).boxed().collect(Collectors.toSet())));
+                towers.add(new Tower(j, nD,IntStream.range(0, nDisks).map(i -> nDisks - i).boxed().collect(Collectors.toList())));
                 continue;
             }
             towers.add(new Tower(j,nD));
