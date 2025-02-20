@@ -9,16 +9,20 @@ public class Tower implements IStack<Integer>{
     private int maxStackSize;
     private int stackSize;
 
-    public Tower(int towerId, Set<Integer> disks) {
+    public Tower(int towerId, int size, Set<Integer> disks) {
         this.towerId = towerId;
         this.disks = new LinkedList<>(disks);
         this.publicDisks = Collections.unmodifiableList(this.disks);
+        this.maxStackSize = size;
+        if(!disks.isEmpty()) {
+            this.stackSize = this.disks.size();
+        }else{
+            this.stackSize = 0;
+        }
     }
 
     public Tower(int towerId, int size) {
-        this(towerId, Collections.emptySet());
-        this.stackSize = 0;
-        this.maxStackSize = size;
+        this(towerId, size, Collections.emptySet());
     }
 
     private boolean isNull(Object n) {

@@ -7,27 +7,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Solver {
-    private int disks;
-    private int towers;
 
-    public Solver(int disks, int towers) {
-        this.disks = disks;
-        this.towers = towers;
-    }
-
-    public List<Move> solve(int fromT, int toT) {
+    public List<Move> solve(int nT, int nD, int start, int end) {
         List<Move> moves = new LinkedList<>();
+        solver(moves, nT, nD, start, end);
         return moves;
     }
 
-    private void solver(List<Move> moves, int nD, int start, int end) {
-        if(disks == 1) {
+    private void solver(List<Move> moves, int nT, int nD, int start, int end) {
+        if(nD == 1) {
             moves.add(new Move(start, end));
         }else{
-            int other = (towers * 2) - (start + end);
-            solver(moves, disks - 1, start, other);
+            int other = (nT * 2) - (start + end);
+            solver(moves, nT, nD - 1, start, other);
             moves.add(new Move(start, end));
-            solver(moves, disks - 1, other, end);
+            solver(moves, nT, nD - 1, other, end);
         }
     }
 }

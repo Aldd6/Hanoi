@@ -1,11 +1,15 @@
 package com.das6.hanoi;
 
+import com.das6.hanoi.controller.Solver;
+import com.das6.hanoi.model.Hanoi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import com.das6.hanoi.model.Move;
 
 public class Main extends Application {
     @Override
@@ -17,7 +21,5 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) {launch();}
 }
