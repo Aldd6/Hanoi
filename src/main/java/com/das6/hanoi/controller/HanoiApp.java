@@ -4,12 +4,10 @@ import com.das6.hanoi.model.Move;
 import javafx.application.Application;
 
 import com.das6.hanoi.model.Hanoi;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -19,6 +17,8 @@ import javafx.animation.Timeline;
 
 import com.das6.hanoi.view.HanoiView;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.List;
 
 public class HanoiApp extends Application {
@@ -45,6 +45,10 @@ public class HanoiApp extends Application {
         controls.getChildren().add(txtEndTower);
         Button solve = new Button("Solve");
         controls.getChildren().add(solve);
+        TextArea console = new TextArea();
+        console.setMaxSize(1080,144);
+        console.setMinSize(1080,144);
+        console.setEditable(false);
 
         HanoiView view = new HanoiView();
         hanoi = new Hanoi(numDisksSpinner.getValue(), numTowersSpinner.getValue(), Integer.parseInt(txtStartTower.getText()));
@@ -59,6 +63,7 @@ public class HanoiApp extends Application {
             hanoi = new Hanoi(numDisksSpinner.getValue(), newValue, Integer.parseInt(txtStartTower.getText()));
             view.renderHanoi(hanoi);
         });
+
 
         solve.setOnAction(e -> {
             controls.setDisable(true);
@@ -79,6 +84,7 @@ public class HanoiApp extends Application {
                 KeyFrame keyFrame = new KeyFrame(current, evt -> {
                     hanoi.makeMove(move);
                     view.renderHanoi(hanoi);
+                    outputHanoi(hanoi,console);
                 });
                 timeline.getKeyFrames().add(keyFrame);
             }
@@ -89,11 +95,19 @@ public class HanoiApp extends Application {
         BorderPane root = new BorderPane();
         root.setTop(controls);
         root.setCenter(view);
+        root.setBottom(console);
         Scene scene = new Scene(root, 1080, 720);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Hanoi");
         primaryStage.show();
 
+    }
+
+    public static void outputHanoi(Hanoi hanoi, TextArea console) {
+        hanoi.getTowers().forEach((tower) -> {
+            console.setText(console.getText() + (tower.getTowerId()+1) + " -> " + tower.getDisks() + "\n");
+        });
+        console.setText(console.getText() + "---------------\n");
     }
 
     public static void main(String[] args) {
